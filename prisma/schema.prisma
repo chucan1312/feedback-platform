@@ -12,34 +12,61 @@ datasource db {
 }
 
 model Form {
-  id          String   @id @default(cuid())
-  userId      String
-  title       String
-  description String?
-  slug        String   @unique
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
+    id          String   @id @default(cuid())
+    userId      String
+    title         String
+    description   String?
+    slug          String   @unique
+    isActive      Boolean  @default(true)
+    createdAt     DateTime @default(now())
 
-  questions   Question[]
-  responses   Response[]
+    questions     Question[]
+    responses     Response[]
+    insights      FormInsight[]
 }
 
 model Question {
-  id        String  @id @default(cuid())
-  formId    String
-  text      String
-  type      String  @default("text")
-  required  Boolean @default(true)
-  order     Int
+    id        String  @id @default(cuid())
+    formId    String
+    text      String
+    type      String  @default("text")
+    required  Boolean @default(true)
+    order     Int
 
-  form      Form    @relation(fields: [formId], references: [id], onDelete: Cascade)
+    form      Form    @relation(fields: [formId], references: [id], onDelete: Cascade)
 }
 
 model Response {
-  id        String   @id @default(cuid())
-  formId    String
-  answers   Json
-  createdAt DateTime @default(now())
+    id        String   @id @default(cuid())
+    formId    String
+    answers   Json
+    createdAt DateTime @default(now())
 
-  form      Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
+    form      Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
+    analysis  ResponseAnalysis? 
+}
+
+model ResponseAnalysis {
+    id                  String      @id @default(cuid())
+    responseId          String      @unique
+    response            Response    @relation(fields: [responseId], references: [id], onDelete: Cascade)
+    tone                String
+    intent              String
+    urgency             String
+    confidence          Float
+    summary             String
+    isFlagged           Boolean @default(false)
+    moderationCategory  String?
+    moderationReason    String?
+    createdAt           DateTime @default(now())
+}
+
+model FormInsight {
+    id          String      @id @default(cuid())
+    formId      String
+    summary     String
+    themes      Json    
+    createdAt   DateTime    @default(now())
+
+    form        Form        @relation(fields: [formId], references: [id], onDelete: Cascade)
 }
