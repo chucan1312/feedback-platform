@@ -1,9 +1,10 @@
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/app/lib/prisma";
+import DeleteFormButton from "../components/DeleteFormButton";
 
 export default async function DashboardPage() {
     const { userId } = await auth();
-
+    
     if (!userId) {
         return <div>Not signed in</div>;
     }
@@ -32,6 +33,7 @@ export default async function DashboardPage() {
                         <p className="text-sm text-zinc-500">
                             {form._count.responses} responses
                         </p>
+                        <DeleteFormButton formId={form.id} />
                     </div>
                 ))}
             </div>
