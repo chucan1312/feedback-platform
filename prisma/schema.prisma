@@ -44,6 +44,8 @@ model Response {
 
     form      Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
     embedding Unsupported("vector")?
+    isFlagged        Boolean @default(false)
+    moderationResult Json?
     analysis  ResponseAnalysis? 
 }
 

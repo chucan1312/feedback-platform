@@ -18,7 +18,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur">
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="text-sm font-semibold tracking-tight">
-          FeedbackAI
+            Blindfeed
         </Link>
 
         {isAppRoute ? (

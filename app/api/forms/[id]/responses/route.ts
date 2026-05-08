@@ -1,5 +1,6 @@
 import { prisma } from "@/app/lib/prisma";
 import { createEmbedding } from "@/app/lib/embeddings";
+import { moderateText } from "@/app/lib/moderation";
 
 function answersToEmbeddingText(answers: Record<string, unknown>) {
   return Object.entries(answers)
@@ -48,13 +49,21 @@ export async function POST(
       );
     }
 
-    const embeddingText = answersToEmbeddingText(answers);
-    const embedding = await createEmbedding(embeddingText);
+    const analysisText = answersToEmbeddingText(answers);
+
+    const [embedding, moderation] = await Promise.all([
+      createEmbedding(analysisText),
+      moderateText(analysisText),
+    ]);
+
+    const moderationJson = JSON.parse(JSON.stringify(moderation));
 
     const response = await prisma.response.create({
       data: {
         formId: id,
         answers,
+        isFlagged: moderation.flagged,
+        moderationResult: moderationJson,
       },
     });
 
