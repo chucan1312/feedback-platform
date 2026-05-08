@@ -1,0 +1,4 @@
+CREATE EXTENSION IF NOT EXISTS vector;
+
+ALTER TABLE "Response"
+ADD COLUMN "embedding" vector(1536);

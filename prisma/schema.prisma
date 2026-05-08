@@ -43,6 +43,7 @@ model Response {
     createdAt DateTime @default(now())
 
     form      Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
+    embedding Unsupported("vector")?
     analysis  ResponseAnalysis? 
 }
 
