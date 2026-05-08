@@ -41,7 +41,7 @@ export default function NewFormPage() {
           throw new Error(data.error || "Failed to save form");
         }
       
-        window.location.href = `/forms/${data.id}`;
+        window.location.href = `/dashboard`;
       }
 
     return (
