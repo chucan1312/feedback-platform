@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/app/lib/prisma";
 import DeleteFormButton from "../components/DeleteFormButton";
+import EditFormButton from "../components/EditFormButton";
 
 export default async function DashboardPage() {
     const { userId } = await auth();
@@ -34,6 +35,7 @@ export default async function DashboardPage() {
                             {form._count.responses} responses
                         </p>
                         <DeleteFormButton formId={form.id} />
+                        <EditFormButton formId={form.id} />
                     </div>
                 ))}
             </div>
