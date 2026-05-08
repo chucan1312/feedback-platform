@@ -9,7 +9,7 @@ export default function EditFormButton({
 }) {
     
     return (
-        <button onClick={() => window.location.href = `/forms/${formId}`}>
+        <button onClick={() => window.location.href = `/forms/${formId}/edit`}>
             Edit
         </button>
     );

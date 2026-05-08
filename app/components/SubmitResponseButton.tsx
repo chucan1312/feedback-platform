@@ -1,46 +1,81 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function SubmitResponseButton({
-    formSlug,
-    formId,
-    answers,
+  formSlug,
+  formId,
+  answers,
+  isValid,
 }: {
-    formSlug: string;
-    formId: string;
-    answers: Record<string, unknown>;
+  formSlug: string;
+  formId: string;
+  answers: Record<string, unknown>;
+  isValid: boolean;
 }) {
-    const router = useRouter();
+  const router = useRouter();
 
-    async function submitResponse() {
-        const res = await fetch(
-            `/api/forms/${formId}/responses`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    answers,
-                }),
-            }
-        );
+  const [isSubmitting, setIsSubmitting] =
+    useState(false);
 
-        const data = await res.json();
+  async function submitResponse() {
+    if (!isValid || isSubmitting) return;
 
-        if (!res.ok) {
-            throw new Error(
-                data.error || "Failed to submit response"
-            );
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch(
+        `/api/forms/${formId}/responses`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            answers,
+          }),
         }
+      );
 
-        router.push(`/f/${formSlug}/thanks`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(
+          data.error ||
+            "Failed to submit response"
+        );
+      }
+
+      router.push(
+        `/f/${formSlug}/thanks`
+      );
+    } finally {
+      setIsSubmitting(false);
     }
+  }
 
-    return (
-        <button type="button" onClick={submitResponse}>
-            Submit
-        </button>
-    );
+  const disabled =
+    !isValid || isSubmitting;
+
+  return (
+    <button
+      type="button"
+      onClick={submitResponse}
+      disabled={disabled}
+      className={`
+        rounded-lg px-4 py-2 font-medium transition-colors
+        ${
+          disabled
+            ? "cursor-not-allowed bg-zinc-300 text-zinc-500"
+            : "bg-black text-white hover:bg-zinc-800"
+        }
+      `}
+    >
+      {isSubmitting
+        ? "Submitting..."
+        : "Submit"}
+    </button>
+  );
 }

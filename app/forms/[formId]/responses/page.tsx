@@ -10,7 +10,7 @@ interface Props {
         </h1>
   
         <p className="mt-2 text-gray-600">
-          Analytics + responses will go here.
+          Analytics.
         </p>
       </main>
     );

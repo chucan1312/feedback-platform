@@ -19,6 +19,20 @@ export default function PublicFormRenderer({
     const [answers, setAnswers] =
         useState<FormAnswers>({});
 
+    const [errors, setErrors] = useState<
+        Record<string, string>
+    >({});
+
+    const isValid = questions.every((question) => {
+        if (!question.required) return true;
+
+        const answer = answers[question.id];
+
+        return (
+            typeof answer === "string" &&
+            answer.trim() !== ""
+        );
+    });
     function handleChange(
         questionId: string,
         value: string
@@ -26,6 +40,11 @@ export default function PublicFormRenderer({
         setAnswers((prev) => ({
             ...prev,
             [questionId]: value,
+        }));
+
+        setErrors((prev) => ({
+            ...prev,
+            [questionId]: "",
         }));
     }
 
@@ -77,6 +96,12 @@ export default function PublicFormRenderer({
                             className="w-full rounded-lg border p-2"
                         />
                     )}
+
+                    {errors[question.id] && (
+                        <p className="text-sm text-red-500">
+                            {errors[question.id]}
+                        </p>
+                    )}
                 </div>
             ))}
 
@@ -84,6 +109,7 @@ export default function PublicFormRenderer({
                 formSlug={form.slug}
                 formId={form.id}
                 answers={answers}
+                isValid={isValid}
             />
         </div>
     );
