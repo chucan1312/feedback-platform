@@ -32,7 +32,7 @@ model Question {
     type      String  @default("text")
     required  Boolean @default(true)
     order     Int
-    option    Json?
+    options   Json?
 
     form      Form    @relation(fields: [formId], references: [id], onDelete: Cascade)
 }
