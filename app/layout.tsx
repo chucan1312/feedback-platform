@@ -25,7 +25,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={{
+        variables: {
+          colorPrimary: "#000000",
+          colorBackground: "#ffffff",
+          colorText: "#111827",
+          colorInputBackground: "#ffffff",
+          colorInputText: "#111827",
+          borderRadius: "0.75rem",
+        },
+        elements: {
+          card: "shadow-xl border border-gray-200 rounded-2xl",
+          headerTitle: "text-xl font-semibold",
+          headerSubtitle: "text-gray-500",
+          formButtonPrimary:
+            "bg-black hover:bg-gray-800 text-white rounded-xl",
+          formFieldInput:
+            "rounded-xl border-gray-300 focus:ring-black focus:border-black",
+          footerActionLink: "text-black hover:text-gray-700",
+        },
+      }}>
       <html lang="en">
         <body
           className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-white text-black antialiased`}

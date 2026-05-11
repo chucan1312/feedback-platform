@@ -1,7 +1,8 @@
 export type QuestionType =
     | "text"
     | "textarea"
-    | "rating";
+    | "rating"
+    | "mcq";
 
 export type BuilderQuestion = {
     id: string; // temporary frontend id
@@ -9,6 +10,7 @@ export type BuilderQuestion = {
     type: QuestionType;
     required: boolean;
     order: number;
+    options?: string[];
 };
 
 export type PublicQuestion = {

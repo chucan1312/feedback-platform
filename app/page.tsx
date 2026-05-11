@@ -43,15 +43,19 @@ export default function HomePage() {
             {/* FEATURES */}
             <section
                 id="features"
-                className="mx-auto max-w-6xl px-6 py-20"
+                className="mx-auto max-w-7xl px-6 py-20"
             >
                 <h2 className="text-center text-3xl font-semibold tracking-tight">
                     Built for understanding feedback
                 </h2>
 
-                <div className="mt-12 grid gap-6 md:grid-cols-3">
+                <div className="mt-12 grid gap-6 md:grid-cols-4">
                     <FeatureCard
-                        title="Multi-dimensional sentiment"
+                        title="Feedback chatbot"
+                        description="Explore survey responses by asking questions and getting context-aware answers."
+                    />
+                    <FeatureCard
+                        title="Multi-dimensional sentiment (In progress)"
                         description="Analyze tone, intent, urgency, and confidence instead of basic positive/negative labels."
                     />
                     <FeatureCard
@@ -70,7 +74,7 @@ export default function HomePage() {
                 id="preview"
                 className="mx-auto max-w-6xl px-6 pb-24"
             >
-                <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
+                {/* <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
                     <div className="rounded-2xl border border-zinc-200 bg-white p-6">
                         <div className="mb-6 flex items-center justify-between">
                             <div>
@@ -98,7 +102,7 @@ export default function HomePage() {
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </section>
             <section id="faq" className="mx-auto max-w-4xl px-6 pb-24">
                 <h2 className="text-center text-3xl font-semibold tracking-tight">
