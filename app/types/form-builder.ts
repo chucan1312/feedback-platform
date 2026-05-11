@@ -1,53 +1,56 @@
 export type QuestionType =
-    | "text"
-    | "textarea"
-    | "rating"
-    | "mcq";
+  | "text"
+  | "textarea"
+  | "rating"
+  | "mcq";
 
 export type BuilderQuestion = {
-    id: string; // temporary frontend id
-    text: string;
-    type: QuestionType;
-    required: boolean;
-    order: number;
-    options?: string[];
+  id: string;
+  text: string;
+  type: QuestionType;
+  required: boolean;
+  order: number;
+  options?: string[];
 };
 
 export type PublicQuestion = {
-    id: string;
-    text: string;
-    type: QuestionType;
-    required: boolean;
-    order: number;
+  id: string;
+  text: string;
+  type: QuestionType;
+  required: boolean;
+  order: number;
+  options?: string[];
 };
 
-export type FormAnswers = Record<string, string>;
+export type FormAnswerValue = string | number;
+
+export type FormAnswers = Record<string, FormAnswerValue>;
 
 export type PublicForm = {
-    id: string;
-    slug: string;
-    title: string;
-    description: string | null;
-    questions: PublicQuestion[];
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  questions: PublicQuestion[];
 };
 
 export type FormWithResponseCount = {
-    id: string;
-    slug: string;
-    title: string;
-    description: string | null;
-    createdAt: Date;
-    _count: {
-        responses: number;
-    };
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  createdAt: Date;
+  _count: {
+    responses: number;
+  };
 };
 
 export type CreateFormBody = {
-    title: string;
-    description: string;
-    questions: BuilderQuestion[];
+  title: string;
+  description: string;
+  questions: BuilderQuestion[];
 };
 
 export type SubmitResponseBody = {
-    answers: FormAnswers;
+  answers: FormAnswers;
 };
