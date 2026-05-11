@@ -1,3 +1,4 @@
+import { FeedbackAssistant } from "@/app/components/FeedbackAssistant";
 import { getInsights } from "@/app/lib/getInsights";
 
 export const dynamic = "force-dynamic";
@@ -23,6 +24,7 @@ export default async function FormAnalysisPage({
         <p className="text-sm text-gray-500">
           Automatically grouped themes from survey responses.
         </p>
+        <FeedbackAssistant formId={formId} />
       </div>
 
       {themes.length === 0 ? (
